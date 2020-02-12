@@ -1,12 +1,14 @@
+import sys
 import json
 import unittest
-from common.configHttp import RunMain
 import paramunittest
-import geturlParams
 import urllib.parse
 # import pythoncom
-import readExcel
 # pythoncom.CoInitialize()
+sys.path.append("..")
+from common.configHttp import RunMain
+import geturlParams
+import readExcel
 
 url = geturlParams.geturlParams().get_Url()# 调用我们的geturlParams获取我们拼接的URL
 login_xls = readExcel.readExcel().get_xls('userCase.xlsx', 'login')
@@ -52,7 +54,7 @@ class testUserLogin(unittest.TestCase):
         check test result
         :return:
         """
-        url1 = "http://www.xxx.com/login?"
+        url1 = "http://127.0.0.1:8888/login?"
         new_url = url1 + self.query
         data1 = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(new_url).query))# 将一个完整的URL中的name=&pwd=转换为{'name':'xxx','pwd':'bbb'}
         info = RunMain().run_main(self.method, url, data1)# 根据Excel中的method调用run_main来进行requests请求，并拿到响应
@@ -63,5 +65,6 @@ class testUserLogin(unittest.TestCase):
             self.assertEqual(ss['code'], -1)
         if self.case_name == 'login_null':# 同上
             self.assertEqual(ss['code'], 10001)
+
 
 

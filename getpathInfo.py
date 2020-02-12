@@ -2,7 +2,6 @@ import os
 
 def get_Path():
     path = os.path.split(os.path.realpath(__file__))[0]
-    path1 = os.path
     return path
 
 if __name__ == '__main__':# 执行该文件，测试下是否OK
